@@ -1,0 +1,13 @@
+config:
+  target: 'http://localhost:5678'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+  processor: "stresstest.js"
+scenarios:
+  - flow:
+    - loop:
+      - function: "randomId"
+      - get:
+          url: "/mainbody/{{ id }}"
+      count: 200
