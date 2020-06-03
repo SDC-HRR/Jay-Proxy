@@ -17,7 +17,7 @@ app.use(express.static(`${__dirname}/../public`));
 // );
 
 const sidebarProxy = createProxyMiddleware({
-  target: 'http://localhost:1992',
+  target: 'http://100.25.165.39:1992',
   changeOrigin: true,
 });
 
