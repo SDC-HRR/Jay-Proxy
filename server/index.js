@@ -2,12 +2,13 @@ const express = require('express');
 const redis = require('redis');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const port_redis = process.env.PORT || 6379;
-const client = redis.createClient(port_redis);
+const portRedis = process.env.PORT || 6379;
+const client = redis.createClient(portRedis);
 
 const app = express();
 
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -20,9 +21,16 @@ app.use(express.static(`${__dirname}/../public`));
 //   },
 // );
 
+const sidebarRes = (proxyRes, req, res) => {
+  console.log(JSON.stringify(proxyRes.body));
+  const { id } = req.params;
+  client.detex(id, 3600, JSON.stringify(proxyRes.body));
+};
+
 const sidebarProxy = createProxyMiddleware({
   target: 'http://100.25.165.39:1992',
   changeOrigin: true,
+  proxyRes: sidebarRes,
 });
 
 // const announcementsProxy = createProxyMiddleware(
