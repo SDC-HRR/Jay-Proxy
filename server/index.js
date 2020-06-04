@@ -31,7 +31,7 @@ const sidebarRes = (proxyRes, req, res) => {
 const sidebarProxy = createProxyMiddleware({
   target: 'http://100.25.165.39:1992',
   changeOrigin: true,
-  proxyRes: sidebarRes,
+  onProxyRes: sidebarRes,
 });
 
 // const announcementsProxy = createProxyMiddleware(
