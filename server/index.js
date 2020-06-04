@@ -2,8 +2,8 @@ const express = require('express');
 const redis = require('redis');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const portRedis = process.env.PORT || 6379;
-const client = redis.createClient(portRedis);
+const addressRedis = process.env.REDIS_ADDRESS || 'steamy.xmpekd.ng.0001.use1.cache.amazonaws.com:6379';
+const client = redis.createClient(addressRedis);
 
 const app = express();
 
@@ -21,16 +21,11 @@ app.use(express.static(`${__dirname}/../public`));
 //   },
 // );
 
-const sidebarRes = (proxyRes, req, res) => {
-  proxyRes.on('data', ( data ) => {
-    console.log('received data: ' + data);
-  });
-};
+client.set('242424', 'This worked!');
 
 const sidebarProxy = createProxyMiddleware({
   target: 'http://100.25.165.39:1992',
   changeOrigin: true,
-  onProxyRes: sidebarRes,
 });
 
 // const announcementsProxy = createProxyMiddleware(
