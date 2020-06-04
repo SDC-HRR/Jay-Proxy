@@ -1,5 +1,9 @@
 const express = require('express');
+const redis = require('redis');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+
+const port_redis = process.env.PORT || 6379;
+const client = redis.createClient(port_redis);
 
 const app = express();
 
@@ -42,10 +46,7 @@ const sidebarProxy = createProxyMiddleware({
 // );
 
 // proxy to sidebar service
-app.use(
-  '/mainBody',
-  sidebarProxy,
-);
+app.use('/mainbody', sidebarProxy);
 
 // // proxy to announcements service for random game
 // app.use(
