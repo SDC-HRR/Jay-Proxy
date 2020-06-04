@@ -22,9 +22,10 @@ app.use(express.static(`${__dirname}/../public`));
 // );
 
 const sidebarRes = (proxyRes, req, res) => {
+  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
   console.log('Here! ' + JSON.stringify(res.body));
   const { id } = req.params;
-  client.detex(id, 3600, JSON.stringify(res.body));
+  client.setex(id, 3600, JSON.stringify(res.body));
 };
 
 const sidebarProxy = createProxyMiddleware({
