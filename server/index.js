@@ -46,8 +46,14 @@ const sidebarProxy = createProxyMiddleware({
 //   mediaProxy,
 // );
 const cacheCheck = (req, res, next) => {
-  console.log('LOGGED: ' + req.params.id);
-  next();
+  const { id } = req.params;
+  let check = client.get(id);
+  if (check) {
+    check = JSON.parse(check);
+    res.status(200).json(check);
+  } else {
+    next();
+  }
 };
 // proxy to sidebar service
 app.get('/mainbody/:id', cacheCheck, sidebarProxy);
