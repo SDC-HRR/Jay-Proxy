@@ -2,8 +2,8 @@ const express = require('express');
 const redis = require('redis');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const addressRedis = process.env.REDIS_ADDRESS || 'redis://steamy.xmpekd.ng.0001.use1.cache.amazonaws.com:6379';
-const client = redis.createClient(addressRedis);
+// const addressRedis = process.env.REDIS_ADDRESS || 'redis://steamy.xmpekd.ng.0001.use1.cache.amazonaws.com:6379';
+// const client = redis.createClient(addressRedis);
 
 const app = express();
 
@@ -57,7 +57,8 @@ const cacheCheck = (req, res, next) => {
   });
 };
 // proxy to sidebar service
-app.get('/mainbody/:id', cacheCheck, sidebarProxy);
+// app.get('/mainbody/:id', cacheCheck, sidebarProxy);
+app.use('/mainbody', sidebarProxy);
 
 // // proxy to announcements service for random game
 // app.use(
