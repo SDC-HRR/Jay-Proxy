@@ -22,7 +22,7 @@ app.use(express.static(`${__dirname}/../public`));
 // );
 
 const sidebarProxy = createProxyMiddleware({
-  target: 'http://steamy-lb-776604327.us-east-1.elb.amazonaws.com',
+  target: 'http://100.26.153.131:5555',
   changeOrigin: true,
 });
 
