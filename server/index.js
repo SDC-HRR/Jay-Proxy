@@ -50,7 +50,7 @@ const cacheCheck = (req, res, next) => {
   client.get(id, (err, check) => {
     console.log(check);
     if (check !== null) {
-      res.status(200).json(check);
+      res.status(200).send(check);
     } else {
       next();
     }
