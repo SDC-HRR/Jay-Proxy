@@ -3,7 +3,7 @@ const redis = require('redis');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const addressRedis = process.env.REDIS_ADDRESS || 'steamy.xmpekd.ng.0001.use1.cache.amazonaws.com:6379';
-const client = redis.createClient(Redis);
+const client = redis.createClient(addressRedis);
 
 const app = express();
 
