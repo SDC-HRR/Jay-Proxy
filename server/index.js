@@ -48,7 +48,8 @@ const sidebarProxy = createProxyMiddleware({
 const cacheCheck = (req, res, next) => {
   const { id } = req.params;
   let check = client.get(id);
-  if (check) {
+  console.log(check);
+  if (check !== null) {
     check = JSON.parse(check);
     res.status(200).json(check);
   } else {
